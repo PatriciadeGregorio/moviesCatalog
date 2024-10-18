@@ -1,14 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { MovieDetail } from "../features/movies/components/MovieDetail.tsx";
 
-export const DetailsScreen = ({navigation, route}: any) => {
-    const movieId = route.params.movieId;
+export const DetailsScreen = ({route}: any) => {
+    const movie = route.params.movie;
 
     return (
-        <View style={styles.container}>
-            <Text>Details Screen</Text>
-            <Text>Movie ID: {movieId}</Text>
-        </View>
+            <MovieDetail movie={movie}/>
     );
 };
 

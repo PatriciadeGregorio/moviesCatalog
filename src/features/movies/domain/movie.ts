@@ -4,4 +4,7 @@ export interface Movie {
     id: Id;
     title: string;
     image: string;
+    description: string;
+    releaseDate: string;
+    score: number;
 }
