@@ -1,12 +1,11 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
-import { Movie } from "../domain/movie.ts";
-import { formatNumber } from "../../../core/utils/format-number.ts";
-import { formatDate } from "../../../core/utils/format-date.ts";
+import { Movie } from '../domain/movie.ts';
+import { formatNumber } from '../../../core/utils/format-number.ts';
+import { formatDate } from '../../../core/utils/format-date.ts';
 
 export const MovieDetail = ({ movie }: { movie: Movie }) => {
     const ratingColor = movie.score < 5 ? styles.scoring_failed : styles.scoring_passed;
-
 
     return (
         <ScrollView style={styles.container}>
