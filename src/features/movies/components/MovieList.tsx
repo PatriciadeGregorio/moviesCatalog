@@ -11,7 +11,7 @@ export function MovieList() {
 
     return (
             <View>
-                {movieList.length === 0 ? (
+                {!movieList || movieList.length === 0 ? (
                     <Text> No se encontraron películas </Text>
                 ) : (
                     <FlatList

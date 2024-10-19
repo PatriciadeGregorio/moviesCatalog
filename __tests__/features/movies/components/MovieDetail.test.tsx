@@ -1,8 +1,8 @@
 import React from 'react';
 import {render, RenderResult} from '@testing-library/react-native';
-import { MovieDetail } from '../src/features/movies/components/MovieDetail.tsx';
-import { Movie } from '../src/features/movies/domain/movie.ts';
-import {MovieMother} from '../src/features/movies/domain/MovieMother.ts';
+import { MovieDetail } from '../../../../src/features/movies/components/MovieDetail.tsx';
+import { Movie } from '../../../../src/features/movies/domain/movie.ts';
+import { MovieMother } from '../../../../src/features/movies/domain/MovieMother.ts';
 
 describe('MovieDetail', () => {
     const po = (res: RenderResult) => ({
