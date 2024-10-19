@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import { Movie } from '../domain/movie.ts';
 
-export const MovieItem = ({ movie, onPress }: {movie: Movie, onPress: any}) => {
+export const MovieItem = ({ movie, onPress }: {movie: Movie, onPress: (movie: Movie) => void}) => {
     return (
         <TouchableOpacity onPress={() => onPress(movie)}>
             <View style={styles.movieItem}>

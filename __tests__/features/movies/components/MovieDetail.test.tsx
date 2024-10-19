@@ -25,7 +25,7 @@ describe('MovieDetail', () => {
 
     });
 
-    it('should apply correct styles based on movie score', () => {
+    it('should apply correct styles based on score', () => {
         const mockedMovie: Movie = MovieMother.filled();
 
         const pageObjectWithPassedScore = po(render(<MovieDetail movie={mockedMovie} />));

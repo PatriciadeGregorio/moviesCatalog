@@ -1,13 +1,11 @@
 import React from 'react';
-import {FlatList, Text, View} from 'react-native';
-import { moviesHttpRepository } from '../infrastructure/repositories/movies-http-repository.ts';
-import { useMovieList } from '../hooks/useMovies.ts';
+import { FlatList, Text, View } from 'react-native';
 import { MovieItem } from './MovieItem.tsx';
 import { useNavigation } from '@react-navigation/native';
+import { Movie } from '../domain/movie.ts';
 
-export function MovieList() {
+export function MovieList({list: movieList, onPagination}: {list: Movie[], onPagination: () => void}) {
     const navigation = useNavigation();
-    const [ movieList ] = useMovieList(moviesHttpRepository);
 
     return (
             <View>
@@ -16,10 +14,12 @@ export function MovieList() {
                 ) : (
                     <FlatList
                         data={movieList}
-                        renderItem={({ item }) => <MovieItem movie={item}  onPress={(movie) => {
+                        onEndReachedThreshold={0.1}
+                        onEndReached={() => onPagination()}
+                        renderItem={({ item }) => <MovieItem movie={item}  onPress={(movie: Movie) => {
                             navigation.navigate('Details', { movie });
                         }}  />}
-                        keyExtractor={(item) => item.id.toString()}
+                        keyExtractor={(_, index) => index.toString()}
                     />
                 )}
             </View>
