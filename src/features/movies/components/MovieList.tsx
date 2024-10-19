@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, View} from 'react-native';
+import {FlatList, Text, View} from 'react-native';
 import { moviesHttpRepository } from '../infrastructure/repositories/movies-http-repository.ts';
 import { useMovieList } from '../hooks/useMovies.ts';
 import { MovieItem } from './MovieItem.tsx';
@@ -11,14 +11,17 @@ export function MovieList() {
 
     return (
             <View>
-                {movieList &&  <FlatList
+                {movieList.length === 0 ? (
+                    <Text> No se encontraron películas </Text>
+                ) : (
+                    <FlatList
                         data={movieList}
                         renderItem={({ item }) => <MovieItem movie={item}  onPress={(movie) => {
                             navigation.navigate('Details', { movie });
                         }}  />}
                         keyExtractor={(item) => item.id.toString()}
-                    />}
-
+                    />
+                )}
             </View>
     );
 }

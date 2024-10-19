@@ -1,22 +1,28 @@
-import axios from 'axios';
 import Config from 'react-native-config';
+import axios from 'axios';
+import { handleResponseErrors } from './handle-response-errors.ts';
+
 
 export const axiosInstance = axios.create({
     baseURL: Config.API_URL,
 });
 
 axiosInstance.interceptors.request.use(
-    (config) => {
+    (response) => {
         const token = Config.READ_TOKEN;
-
         if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+            response.headers.Authorization = `Bearer ${token}`;
         }
-
-        return config;
+        return response;
     },
     (error) => {
         return Promise.reject(error);
     }
 );
+
+axiosInstance.interceptors.response.use(
+    (response) =>  response,
+    (error) => handleResponseErrors(error)
+);
+
 

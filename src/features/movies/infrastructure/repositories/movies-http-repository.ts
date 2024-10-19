@@ -6,8 +6,9 @@ import { MovieResponseDto } from '../dto/movie-dto.ts';
 
 export const moviesHttpRepository: MoviesRepository = {
     getMovies: async (): Promise<Movie[]> => {
-        return axiosInstance.get('/movie/popular?language=en-US')
+        return axiosInstance.get('/movie/popular?language=es-ES')
             .then<MovieResponseDto>((response) => response.data)
-            .then(moviesDto => moviesDto.results.map(movie => new MovieTransformer().toModel(movie)));
+            .then(moviesDto => moviesDto.results.map(movie => new MovieTransformer().toModel(movie)))
+            .catch(_ => Promise.resolve([]));
     },
 };
