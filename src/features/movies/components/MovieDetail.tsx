@@ -3,6 +3,8 @@ import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 import { Movie } from '../domain/movie.ts';
 import { formatNumber } from '../../../core/utils/format-number.ts';
 import { formatDate } from '../../../core/utils/format-date.ts';
+import { FavoriteIcon } from './FavouriteIcon.tsx';
+import Toast from 'react-native-toast-message';
 
 export const MovieDetail = ({ movie }: { movie: Movie }) => {
     const ratingColor = movie.score < 5 ? styles.scoring_failed : styles.scoring_passed;
@@ -12,11 +14,15 @@ export const MovieDetail = ({ movie }: { movie: Movie }) => {
             <Image source={{ uri: movie.image }} style={styles.image} />
 
             <View style={styles.detailsContainer}>
-                <Text style={styles.title}>{ movie.title }</Text>
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}>{ movie.title }</Text>
+                    <FavoriteIcon movie={movie}/>
+                </View>
                 <Text style={styles.releaseDate}>{formatDate(movie.releaseDate)}</Text>
                 <Text style={[styles.scoring, ratingColor]}>Rating: {formatNumber(movie.score, 1)}/10</Text>
                 <Text style={styles.description}>{movie.description}</Text>
             </View>
+            <Toast/>
         </ScrollView>
     );
 };
@@ -35,6 +41,10 @@ const styles = StyleSheet.create({
     },
     detailsContainer: {
         padding: 20,
+    },
+    titleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     title: {
         fontSize: 28,
