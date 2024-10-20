@@ -14,6 +14,12 @@ export const moviesHttpRepository: MoviesRepository = {
             .then(moviesDto => moviesDto.results.map(movie => new MovieTransformer().toModel(movie)))
             .catch(_ => Promise.resolve([]));
     },
+    getFavoriteMovies: async (page: Page = 1): Promise<Movie[]> => {
+        return axiosInstance.get(`/account/${ACCOUNT_ID}/favorite/movies?language=es-ES&page=${page}`)
+            .then<MovieResponseDto>((response) => response.data)
+            .then(moviesDto => moviesDto.results.map(movie => new MovieTransformer().toModel(movie)))
+            .catch(_ => Promise.resolve([]));
+    },
     markMovieAsFavorite: async({movie, isFavorite}: FavoriteMovie): Promise<void> => {
         const payload = {
             media_type: 'movie', media_id: movie.id, favorite:isFavorite,
