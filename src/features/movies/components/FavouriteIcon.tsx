@@ -4,14 +4,15 @@ import Toast from 'react-native-toast-message';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Movie } from '../domain/movie.ts';
 import { MarkMovieAsFavoriteCmd } from '../application/mark-movie-as-favorite-cmd.ts';
-import { moviesHttpRepository } from '../infrastructure/repositories/movies-http-repository.ts';
+import { useApplication } from '../../../context/ApplicationContext.tsx';
 
 export const FavoriteIcon = ({movie}: {movie: Movie}) => {
+    const {moviesRepository} = useApplication();
     const [isFavorite, setIsFavorite] = useState(false);
 
     const toggleFavorite = async () => {
         setIsFavorite(!isFavorite);
-        const markMovieAsFavoriteCmd = new MarkMovieAsFavoriteCmd(moviesHttpRepository);
+        const markMovieAsFavoriteCmd = new MarkMovieAsFavoriteCmd(moviesRepository);
         markMovieAsFavoriteCmd.internalExecute({movie, isFavorite: !isFavorite})
             .then(_ => {
                 Toast.show({

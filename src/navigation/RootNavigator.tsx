@@ -6,9 +6,10 @@ import { HomeScreen } from '../screens/HomeScreen.tsx';
 import { DetailsScreen } from '../screens/DetailsScreen.tsx';
 import { FavoriteScreen } from '../screens/FavoriteScreen.tsx';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { RootStackParamList } from './navigation-props.ts';
 
 const Tab = createBottomTabNavigator();
-const HomeStack = createNativeStackNavigator();
+const HomeStack = createNativeStackNavigator<RootStackParamList>();
 
 function HomeStackScreen() {
     return (

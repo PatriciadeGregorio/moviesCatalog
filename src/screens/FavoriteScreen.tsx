@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { MovieList } from '../features/movies/components/MovieList';
-import { moviesHttpRepository } from '../features/movies/infrastructure/repositories/movies-http-repository.ts';
 import { useFavoriteMovieList } from '../features/movies/hooks/useFavoriteMovies.ts';
+import { useApplication } from "../context/ApplicationContext.tsx";
 
 export const FavoriteScreen = () => {
-    const [ movieList ] = useFavoriteMovieList(moviesHttpRepository);
+    const { moviesRepository} = useApplication();
+    const [ movieList ] = useFavoriteMovieList(moviesRepository);
 
     return (
         <View style={styles.container}>
