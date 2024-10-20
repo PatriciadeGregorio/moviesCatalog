@@ -17,7 +17,7 @@ describe('moviesHttpRepository', () => {
 
         (axiosInstance.get as jest.Mock).mockResolvedValueOnce({data: mockResponse});
 
-        const movies = await moviesHttpRepository.getMovies();
+        const movies = await moviesHttpRepository.getMovies(1);
 
         expect(movies.length).toBe(3);
         expect(movies[0].title).toBe('Movie title 1');
@@ -31,7 +31,7 @@ describe('moviesHttpRepository', () => {
 
     it('should return an empty array if the request fails', async () => {
         (axiosInstance.get as jest.Mock).mockRejectedValueOnce(new Error('Network Error'));
-        const movies = await moviesHttpRepository.getMovies();
+        const movies = await moviesHttpRepository.getMovies(1);
         expect(movies).toEqual([]);
     });
 });

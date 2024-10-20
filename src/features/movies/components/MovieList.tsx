@@ -11,7 +11,7 @@ export function MovieList({list: movieList, onPagination}: {list: Movie[], onPag
     const {filtersApplied} = useMovieStore();
 
     useEffect(() => {
-            setCanPaginate(!filtersApplied);
+        setCanPaginate(!filtersApplied);
     }, [filtersApplied]);
 
     return (
