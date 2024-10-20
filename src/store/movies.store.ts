@@ -8,6 +8,7 @@ interface MovieState {
     filtersApplied: boolean;
     setSearchTerm: (searchTerm: string) => void;
     setMovies: (movies: Movie[]) => void;
+    reset:() => void;
 }
 
 export const useMovieStore = create<MovieState>((set) => ({
@@ -31,5 +32,13 @@ export const useMovieStore = create<MovieState>((set) => ({
             ),
             filtersApplied: !!newSearchTime,
         }));
+    },
+    reset: () => {
+        set({
+            movies: [],
+            filteredMovies: [],
+            searchTerm: '',
+            filtersApplied: false,
+        });
     },
 }));

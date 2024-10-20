@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, StyleSheet, View } from 'react-native';
-import Toast from 'react-native-toast-message';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { Movie } from '../domain/movie.ts';
 import { MarkMovieAsFavoriteCmd } from '../application/mark-movie-as-favorite-cmd.ts';
 import { useApplication } from '../../../context/ApplicationContext.tsx';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Toast from 'react-native-toast-message';
 
 export const FavoriteIcon = ({movie}: {movie: Movie}) => {
     const {moviesRepository} = useApplication();
@@ -29,6 +29,7 @@ export const FavoriteIcon = ({movie}: {movie: Movie}) => {
         <View style={styles.container}>
             <TouchableOpacity onPress={toggleFavorite}>
                 <Icon
+                    testID="favorite-icon"
                     name={isFavorite ? 'heart' : 'heart-o'}
                     size={30}
                     color={isFavorite ? 'red' : 'gray'}
