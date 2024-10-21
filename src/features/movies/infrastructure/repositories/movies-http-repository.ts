@@ -6,6 +6,9 @@ import { MovieResponseDto } from '../dto/movie-dto.ts';
 import { Page } from '../../../../core/types/page.ts';
 import { ACCOUNT_ID } from '../../../../core/constants.ts';
 import { FavoriteMovie } from '../../domain/favorite-movie.ts';
+import {GenreResponseDto} from "../dto/genre-dto.ts";
+import {MovieGenresTransformer} from "../mappers/movie-genres-transformer.ts";
+import {MovieGenres} from "../../domain/movie-genres.ts";
 
 export const moviesHttpRepository: MoviesRepository = {
     getMovies: async (page: Page = 1): Promise<Movie[]> => {
@@ -25,5 +28,11 @@ export const moviesHttpRepository: MoviesRepository = {
             media_type: 'movie', media_id: movie.id, favorite:isFavorite,
         };
         await axiosInstance.post(`/account/${ACCOUNT_ID}/favorite`, payload);
+    },
+    getCategories: async(): Promise<MovieGenres> => {
+        return axiosInstance.get('/genre/movie/list')
+            .then<GenreResponseDto>((response) => response.data)
+            .then(genresDto => new MovieGenresTransformer().toModel(genresDto.genres))
+            .catch(_ => Promise.resolve(new Map()));
     },
 };

@@ -2,11 +2,11 @@ import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import { useMovieStore } from '../../../store/movies.store.ts';
 
-export const Search = () => {
+export const Search = ({style}) => {
     const { searchTerm, setSearchTerm } = useMovieStore();
 
     return (
-        <View style={styles.container}>
+        <View style={[style, styles.container]}>
             <TextInput
                 placeholder="Buscar por título"
                 value={searchTerm}
