@@ -1,6 +1,7 @@
 import { Alert } from 'react-native';
+import { AxiosError } from 'axios';
 
-export const handleResponseErrors = (error) => {
+export const handleResponseErrors = (error: AxiosError) => {
     if (!error.response) {
         Alert.alert(
             'Error de Conexión',
@@ -10,7 +11,7 @@ export const handleResponseErrors = (error) => {
     } else {
         Alert.alert(
             'Error',
-            `Ocurrió un error: ${error.response.status} ${error.response.data.message || 'Por favor, inténtalo más tarde.'}`,
+            `Ocurrió un error: ${error.response.status} || 'Por favor, inténtalo más tarde.'}`,
             [{ text: 'OK' }]
         );
     }

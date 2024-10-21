@@ -19,17 +19,15 @@ export const useMovieStore = create<MovieState>((set) => ({
     setMovies: (newMovies: Movie[]) => {
         set((state) => ({
             movies: [...state.movies, ...newMovies],
-            filteredMovies: [...state.movies, ...newMovies].filter(movie =>
-                state.searchTerm ? movie.title.toLowerCase().includes(state.searchTerm.toLowerCase()) : state.movies
-            ),
+            filteredMovies: [...state.movies, ...newMovies],
         }));
     },
     setSearchTerm: (newSearchTime: string) => {
         set((state) => ({
             searchTerm: newSearchTime,
-            filteredMovies: state.movies.filter(movie =>
-                newSearchTime ? movie.title.toLowerCase().includes(newSearchTime.toLowerCase()) : state.movies
-            ),
+            filteredMovies: newSearchTime ? state.movies.filter(movie =>
+                  movie.title.toLowerCase().includes(newSearchTime.toLowerCase())
+            ) : state.movies,
             filtersApplied: !!newSearchTime,
         }));
     },

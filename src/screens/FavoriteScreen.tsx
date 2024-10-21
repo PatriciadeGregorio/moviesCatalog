@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { MovieList } from '../features/movies/components/MovieList';
 import { useFavoriteMovieList } from '../features/movies/hooks/useFavoriteMovies.ts';
-import { useApplication } from "../context/ApplicationContext.tsx";
+import { useApplication } from '../context/ApplicationContext.tsx';
 
 export const FavoriteScreen = () => {
     const { moviesRepository} = useApplication();
