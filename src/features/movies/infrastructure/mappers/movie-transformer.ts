@@ -12,6 +12,7 @@ export class MovieTransformer implements DtoTransformer<MovieDto, Movie> {
             description: dto.overview,
             releaseDate: dto.release_date,
             score: dto.vote_average,
+            genres: dto.genre_ids,
         };
     }
 }

@@ -7,4 +7,5 @@ export interface Movie {
     description: string;
     releaseDate: string;
     score: number;
+    genres: number[];
 }

@@ -3,27 +3,21 @@ import { TouchableOpacity, StyleSheet, View, Text, ScrollView, Modal } from 'rea
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CheckBox from '@react-native-community/checkbox';
 import { MovieGenres } from '../domain/movie-genres.ts';
+import { useMovieStore } from '../../../store/movies.store.ts';
 
-export const FilterIcon = ({genres}: {genres: MovieGenres}) => {
-    const [modalVisible, setModalVisible] = useState(false);
+export const FilterIcon = ({genres}: {genres: MovieGenres[]}) => {
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
+    const { setCategoriesFiltered } = useMovieStore();
 
-    const initialState = () => {
-        const result: Record<string, boolean> = {};
-        genres.forEach((value) => {
-            result[value] = false;
-        });
-        return result;
-    };
-    const [selectedOptions, setSelectedOptions] = useState(initialState());
-
-    const toggleCheckbox = (category: string) => {
-        setSelectedOptions((prev) => ({
-            ...prev,
-            [category]: !prev[category],
-        }));
+    const toggleCheckbox = (category: number) => {
+        setSelectedOptions((prev) => ([...prev, category]));
     };
 
     const closeModal = () => {
+        if (selectedOptions) {
+            setCategoriesFiltered(selectedOptions);
+        }
         setModalVisible(false);
         console.log(selectedOptions);
     };
@@ -48,13 +42,13 @@ export const FilterIcon = ({genres}: {genres: MovieGenres}) => {
                             <Text style={styles.modalTitle}>Filtra por géneros</Text>
 
                             <ScrollView style={styles.scrollView}>
-                                {Array.from(genres).map(([id, category]) => (
-                                    <View key={id} style={styles.checkboxContainer}>
+                                {genres.map((genre: MovieGenres) => (
+                                    <View key={genre.id} style={styles.checkboxContainer}>
                                         <CheckBox
-                                            value={selectedOptions[category]}
-                                            onValueChange={() => toggleCheckbox(category)}
+                                            value={selectedOptions.includes(genre.id)}
+                                            onValueChange={() => toggleCheckbox(genre.id)}
                                         />
-                                        <Text style={styles.checkboxLabel}>{category}</Text>
+                                        <Text style={styles.checkboxLabel}>{genre.name}</Text>
                                     </View>
                                 ))}
                             </ScrollView>

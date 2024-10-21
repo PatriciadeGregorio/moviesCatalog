@@ -29,10 +29,10 @@ export const moviesHttpRepository: MoviesRepository = {
         };
         await axiosInstance.post(`/account/${ACCOUNT_ID}/favorite`, payload);
     },
-    getCategories: async(): Promise<MovieGenres> => {
+    getCategories: async(): Promise<MovieGenres[]> => {
         return axiosInstance.get('/genre/movie/list')
             .then<GenreResponseDto>((response) => response.data)
             .then(genresDto => new MovieGenresTransformer().toModel(genresDto.genres))
-            .catch(_ => Promise.resolve(new Map()));
+            .catch(_ => Promise.resolve([]));
     },
 };

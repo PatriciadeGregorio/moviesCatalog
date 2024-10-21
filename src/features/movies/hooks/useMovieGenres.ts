@@ -1,10 +1,10 @@
-import {useEffect, useState} from 'react';
+import { useEffect } from 'react';
 import { MoviesRepository } from '../domain/movie.repository.ts';
-import { MovieGenres } from '../domain/movie-genres.ts';
 import { GetMovieCategoriesQry } from '../application/get-movie-categories-qry.ts';
+import { useMovieStore } from '../../../store/movies.store.ts';
 
 export function useMovieGenres(repository: MoviesRepository) {
-    const [genres, setGenres ] = useState<MovieGenres>(new Map());
+    const { genres, setGenres } = useMovieStore();
 
     useEffect(() => {
             const fetchData = async () => {
@@ -14,7 +14,7 @@ export function useMovieGenres(repository: MoviesRepository) {
             };
 
             fetchData();
-    }, [repository]);
+    }, [repository, setGenres]);
 
     return [genres];
 }
